@@ -5,10 +5,7 @@ services:
     image: mongo
     container_name: mongo-authentication
     ports:
-      - '${DATABASE_PORT}:5432'
-    # volumes:
-    #   - ./certs/mongodb:/certs
-    #   - ./config/mongod.conf:/etc/mongod.conf
+      - '${DATABASE_PORT}:27017'
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
