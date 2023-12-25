@@ -4,7 +4,6 @@ export interface MailAddress {
 }
 
 export interface MailMessage {
-	from: MailAddress;
 	to: MailAddress;
 	subject: string;
 	body: string;

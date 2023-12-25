@@ -1,27 +1,22 @@
-import Router from "nulla-router";
-import path from "node:path";
-import { Constructor, container } from "@container";
-import { Controller } from "@presentation/protocols";
-import { RouteOptions, kControllerRoute } from "@presentation/decorators/route";
-import { routeModules } from "./modules";
-import { adaptRoute } from "../adapters/adaptRoute";
-import { ENV } from "../config/env";
-import { sortControllers } from "../helpers";
-import { FilesFinder } from "@main/utils";
+import Router from 'nulla-router';
+import path from 'node:path';
+import { Constructor, container } from '@container';
+import { Controller } from '@presentation/protocols';
+import { RouteOptions, kControllerRoute } from '@presentation/decorators/route';
+import { routeModules } from './modules';
+import { adaptRoute } from '../adapters/adaptRoute';
+import { ENV } from '../config/env';
+import { sortControllers } from '../helpers';
+import { FilesFinder } from '@main/utils';
 
 export const router = new Router();
 
-const sourceFolder = ENV.NODE_ENV === "production" ? "dist" : "src";
+const sourceFolder = ENV.NODE_ENV === 'production' ? 'dist' : 'src';
 
-const modulesDir = path.join(
-	process.cwd(),
-	sourceFolder,
-	"presentation",
-	"controllers"
-);
+const modulesDir = path.join(process.cwd(), sourceFolder, 'presentation', 'controllers');
 const controllerPaths = new FilesFinder().find(
 	modulesDir,
-	/[a-zA-Z]+Controller\.(ts|js)/
+	/[a-zA-Z]+Controller\.(ts|js)/,
 );
 
 const controllers: Array<Constructor<Controller>> = controllerPaths
@@ -40,6 +35,8 @@ for (const controller of Object.values(sortedControllers)) {
 
 	const groupPath = routeModules[module];
 	const fullPath = groupPath + path;
+
+	console.log('full path', fullPath);
 
 	router[method](fullPath, adaptRoute(instance));
 }

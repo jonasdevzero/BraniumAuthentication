@@ -1,6 +1,6 @@
 import { MailMessage, MailProvider } from '@data/protocols';
-import sendgrid, { MailDataRequired, MailService } from '@sendgrid/mail';
 import { mailConfig } from '@main/config/mail';
+import sendgrid, { MailDataRequired, MailService } from '@sendgrid/mail';
 import { HtmlToTextOptions, htmlToText } from 'html-to-text';
 import DOMPurify from 'isomorphic-dompurify';
 
@@ -22,8 +22,8 @@ class SendGridProvider implements MailProvider {
 
 		const sendMailConfig: MailDataRequired = {
 			from: {
-				name: String(message.from.name),
-				email: message.from.email,
+				name: mailConfig.userFrom,
+				email: mailConfig.emailFrom,
 			},
 			to: {
 				name: String(message.to.name),
