@@ -12,6 +12,13 @@ export interface User {
 }
 
 export type UserRole = 'USER' | 'ADMIN';
+
+export interface LoadedUser {
+	id: string;
+	username: string;
+	role: UserRole;
+}
+
 export interface Authentication {
 	access: string;
 	refresh: string;

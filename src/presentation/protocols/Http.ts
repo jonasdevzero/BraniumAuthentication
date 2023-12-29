@@ -1,4 +1,5 @@
-import { IncomingHttpHeaders } from "http";
+import { UserRole } from '@domain/models';
+import { IncomingHttpHeaders } from 'http';
 
 export interface HttpRequest {
 	body?: any;
@@ -7,6 +8,7 @@ export interface HttpRequest {
 	headers: IncomingHttpHeaders;
 	user: {
 		id: string;
+		role?: UserRole;
 	};
 }
 
@@ -15,4 +17,4 @@ export interface HttpResponse {
 	statusCode: number;
 }
 
-export type HttpMethod = "get" | "post" | "put" | "patch" | "delete";
+export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
