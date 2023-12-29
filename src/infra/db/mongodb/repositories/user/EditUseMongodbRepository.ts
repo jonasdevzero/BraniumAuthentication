@@ -6,6 +6,8 @@ export class EditUserMongodbRepository implements EditUserRepository {
 	async edit(data: EditUserDTO): Promise<void> {
 		const { id, ...rest } = data;
 
-		await getCollection('user').updateOne({ id }, rest);
+		const date = rest.createdAt || new Date();
+
+		await getCollection('user').updateOne({ id }, { $set: { ...rest, updatedAt: date } });
 	}
 }

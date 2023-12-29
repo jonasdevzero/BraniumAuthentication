@@ -4,4 +4,6 @@ export interface EditUserDTO {
 	email?: string;
 	password?: string;
 	verified?: boolean;
+
+	createdAt?: Date;
 }

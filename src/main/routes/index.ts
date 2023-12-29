@@ -3,7 +3,6 @@ import path from 'node:path';
 import { Constructor, container } from '@container';
 import { Controller } from '@presentation/protocols';
 import { RouteOptions, kControllerRoute } from '@presentation/decorators/route';
-import { routeModules } from './modules';
 import { adaptRoute } from '../adapters/adaptRoute';
 import { ENV } from '../config/env';
 import { sortControllers } from '../helpers';
@@ -31,12 +30,7 @@ for (const controller of Object.values(sortedControllers)) {
 
 	if (!routeOptions) continue;
 
-	const { method, module, path } = routeOptions;
+	const { method, path } = routeOptions;
 
-	const groupPath = routeModules[module];
-	const fullPath = groupPath + path;
-
-	console.log('full path', fullPath);
-
-	router[method](fullPath, adaptRoute(instance));
+	router[method](path, adaptRoute(instance));
 }

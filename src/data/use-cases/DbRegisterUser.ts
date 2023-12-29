@@ -73,7 +73,7 @@ export class DbRegisterUser implements RegisterUser {
 			throw new BadRequestError('Username already in use');
 		}
 
-		false;
+		return false;
 	}
 
 	private async createUser(data: RegisterUserDTO) {
@@ -82,7 +82,7 @@ export class DbRegisterUser implements RegisterUser {
 	}
 
 	private async editUser(data: EditUserDTO) {
-		await this.editUserRepository.edit(data);
+		await this.editUserRepository.edit({ ...data, createdAt: new Date() });
 		return data.id;
 	}
 }

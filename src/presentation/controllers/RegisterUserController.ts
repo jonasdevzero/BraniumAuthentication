@@ -7,7 +7,7 @@ import { RegisterUserValidator } from '@presentation/validators';
 
 @controller()
 @middlewares(RegisterUserValidator)
-@route.post('register')
+@route.post('/register')
 export class RegisterUserController implements Controller {
 	constructor(
 		@inject.usecase('RegisterUser')

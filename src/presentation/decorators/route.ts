@@ -1,22 +1,18 @@
-import { routeModules } from '@main/routes/modules';
 import { Controller, HttpMethod } from '../protocols';
 
 type Class<T> = { new (...args: any[]): T };
-type RouteModule = keyof typeof routeModules;
 
 export interface RouteOptions {
 	method: HttpMethod;
-	module: RouteModule;
 	path: string;
 }
 
 export const kControllerRoute = Symbol('controller.route');
 
-export function route(method: HttpMethod, module: RouteModule, path?: string) {
+export function route(method: HttpMethod, path: string) {
 	const options: RouteOptions = {
 		method,
-		module,
-		path: path || '',
+		path: path,
 	};
 
 	return function decorator<T extends Class<Controller>>(constructor: T): T | void {
@@ -25,22 +21,22 @@ export function route(method: HttpMethod, module: RouteModule, path?: string) {
 	};
 }
 
-route.get = function (module: RouteModule, path?: string) {
-	return route('get', module, path);
+route.get = function (path: string) {
+	return route('get', path);
 };
 
-route.post = function (module: RouteModule, path?: string) {
-	return route('post', module, path);
+route.post = function (path: string) {
+	return route('post', path);
 };
 
-route.put = function (module: RouteModule, path?: string) {
-	return route('put', module, path);
+route.put = function (path: string) {
+	return route('put', path);
 };
 
-route.patch = function (module: RouteModule, path?: string) {
-	return route('patch', module, path);
+route.patch = function (path: string) {
+	return route('patch', path);
 };
 
-route.delete = function (module: RouteModule, path?: string) {
-	return route('delete', module, path);
+route.delete = function (path: string) {
+	return route('delete', path);
 };
