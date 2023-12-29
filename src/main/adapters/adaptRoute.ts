@@ -14,7 +14,7 @@ async function loadRequestBody(req: IncomingMessage): Promise<any> {
 				const requestBody = JSON.parse(data);
 				resolve(requestBody);
 			} catch (error) {
-				reject(error);
+				resolve({});
 			}
 		});
 	});
