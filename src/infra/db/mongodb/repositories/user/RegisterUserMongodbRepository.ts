@@ -11,6 +11,7 @@ export class RegisterUserMongodbRepository implements RegisterUserRepository {
 		const user: User = {
 			id: randomUUID(),
 			...data,
+			role: 'USER',
 			verified: false,
 			createdAt: date,
 			updatedAt: date,

@@ -5,6 +5,7 @@
 		"Decrypter",
 		"dompurify",
 		"dtos",
+		"encrypter",
 		"Encrypter",
 		"hasher",
 		"Hasher",

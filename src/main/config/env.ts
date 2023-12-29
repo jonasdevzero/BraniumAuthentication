@@ -15,7 +15,8 @@ const envSchema = z.object({
 	REDIS_URL: z.string(),
 
 	JWT_SECRET: z.string(),
-	JWT_EXPIRES_IN: z.string().default('15days'),
+	JWT_EXPIRES_IN: z.string().default('3days'),
+	JWT_REFRESH_EXPIRES_IN: z.string().default('15days'),
 
 	MAIL_DRIVER: z.enum(['fake', 'sendgrid']).default('fake'),
 	MAIL_EMAIL_FROM: z.string().optional(),
