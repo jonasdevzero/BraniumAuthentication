@@ -2,7 +2,7 @@ import { Controller, HttpRequest } from '@presentation/protocols';
 import { IncomingMessage, ServerResponse } from 'node:http';
 
 async function loadRequestBody(req: IncomingMessage): Promise<any> {
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve) => {
 		let data = '';
 
 		req.on('data', (chunk) => {

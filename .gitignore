@@ -3,8 +3,7 @@ dist
 
 .env
 
-ssl/*
-!ssl/.gitkeep
+ssl/**/*.pem
 
 temp/*
 !temp/uploads

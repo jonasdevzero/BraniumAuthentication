@@ -6,8 +6,10 @@ const envSchema = z.object({
 
 	PORT: z.string().default('5001').transform(Number),
 
+	PASSPHRASE: z.string(),
 	PRIVATE_KEY: z.string().default('ssl/server-key.pem'),
 	CERTIFICATE: z.string().default('ssl/server-cert.pem'),
+	CA: z.string().default('ssl/ca-cert.pem'),
 
 	DATABASE_URL: z.string(),
 

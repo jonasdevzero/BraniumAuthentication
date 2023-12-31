@@ -34,3 +34,5 @@ for (const controller of Object.values(sortedControllers)) {
 
 	router[method](path, adaptRoute(instance));
 }
+
+router.get('/', (req, res) => res.end('ok'));

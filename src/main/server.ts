@@ -8,8 +8,12 @@ import { router } from './routes';
 import { connectDatabase } from '@infra/db/mongodb/connection';
 
 const options: https.ServerOptions = {
+	requestCert: true,
+	rejectUnauthorized: true,
+	passphrase: ENV.PASSPHRASE,
 	key: fs.readFileSync(ENV.PRIVATE_KEY),
 	cert: fs.readFileSync(ENV.CERTIFICATE),
+	ca: fs.readFileSync(ENV.CA),
 };
 
 const server = https.createServer(options, router.lookup.bind(router));

@@ -58,7 +58,7 @@ export class DbRegisterUser implements RegisterUser {
 
 		this.mailProvider.send({
 			subject: 'Bem vindo ao Branium',
-			body: `http://localhost:3000/api/user/verify/${metadata.id}`,
+			body: `http://localhost:3000/register/finish?token=${metadata.id}&email=${email}`,
 			to: { email },
 		});
 	}
