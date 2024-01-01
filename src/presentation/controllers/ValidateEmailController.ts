@@ -17,8 +17,8 @@ export class ValidateEmailController implements Controller {
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
 		const data = httpRequest.body;
 
-		await this.validateEmail.validate(data);
+		const result = await this.validateEmail.validate(data);
 
-		return response.ok();
+		return response.ok(result);
 	}
 }

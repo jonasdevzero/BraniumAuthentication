@@ -14,7 +14,7 @@ export async function connectDatabase() {
 }
 
 export function getDatabase() {
-	return client.db('key-exchange');
+	return client.db('authentication');
 }
 
 export function getCollection(name: string) {

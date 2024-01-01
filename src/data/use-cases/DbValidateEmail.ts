@@ -6,6 +6,7 @@ import {
 	HashComparer,
 } from '@data/protocols';
 import { ValidateEmailDTO } from '@domain/dtos';
+import { LoadedUser } from '@domain/models';
 import { ValidateEmail } from '@domain/use-cases/ValidateEmail';
 import { inject, injectable } from '@main/container';
 import { BadRequestError, UnauthorizedError } from '@presentation/errors';
@@ -29,7 +30,7 @@ export class DbValidateEmail implements ValidateEmail {
 		private readonly editUserRepository: EditUserRepository,
 	) {}
 
-	async validate(data: ValidateEmailDTO): Promise<void> {
+	async validate(data: ValidateEmailDTO): Promise<LoadedUser> {
 		const { token, email } = data;
 
 		const metadata = await this.findMetadataByIdRepository.find(token);
@@ -68,5 +69,7 @@ export class DbValidateEmail implements ValidateEmail {
 
 		await this.editUserRepository.edit({ id: user.id, verified: true });
 		await this.deleteMetadataRepository.delete(metadata.id);
+
+		return { id: user.id, username: user.username, role: user.role };
 	}
 }
