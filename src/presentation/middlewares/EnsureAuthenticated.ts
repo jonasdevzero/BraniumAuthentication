@@ -2,12 +2,16 @@ import { UnauthorizedError } from '@presentation/errors';
 import { Decrypter } from '@data/protocols/authentication';
 import { inject, injectable } from '@container';
 import { HttpRequest, Middleware } from '../protocols';
+import { GetCache } from '@data/protocols';
 
 @injectable()
 export class EnsureAuthenticated implements Middleware {
 	constructor(
 		@inject('Decrypter')
 		private readonly decrypter: Decrypter,
+
+		@inject('GetCache')
+		private readonly getCache: GetCache,
 	) {}
 
 	async handle(httpRequest: HttpRequest): Promise<void> {
@@ -19,8 +23,14 @@ export class EnsureAuthenticated implements Middleware {
 
 		const { 1: token } = authorization.split(' ');
 
-		const id = this.decrypter.decrypt(token);
+		const sessionId = this.decrypter.decrypt(token);
 
-		Object.assign(httpRequest.user, { id });
+		const userId = await this.getCache.get(`session:${sessionId}`);
+
+		if (!userId) {
+			throw new UnauthorizedError('Session expired');
+		}
+
+		Object.assign(httpRequest.user, { id: userId });
 	}
 }

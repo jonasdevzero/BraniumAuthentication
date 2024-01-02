@@ -6,7 +6,6 @@ const envSchema = z.object({
 
 	PORT: z.string().default('5001').transform(Number),
 
-	PASSPHRASE: z.string(),
 	PRIVATE_KEY: z.string().default('ssl/server-key.pem'),
 	CERTIFICATE: z.string().default('ssl/server-cert.pem'),
 	CA: z.string().default('ssl/ca-cert.pem'),
@@ -17,8 +16,8 @@ const envSchema = z.object({
 	REDIS_URL: z.string(),
 
 	JWT_SECRET: z.string(),
-	JWT_EXPIRES_IN: z.string().default('3days'),
-	JWT_REFRESH_EXPIRES_IN: z.string().default('15days'),
+	JWT_EXPIRES_IN: z.string().default('1hour'),
+	JWT_REFRESH_EXPIRES_IN: z.string().default('3days'),
 
 	MAIL_DRIVER: z.enum(['fake', 'sendgrid']).default('fake'),
 	MAIL_EMAIL_FROM: z.string().optional(),

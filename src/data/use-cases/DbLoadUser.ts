@@ -18,7 +18,7 @@ export class DbLoadUser implements LoadUser {
 	) {}
 
 	async load(userId: string): Promise<LoadedUser> {
-		const cachedUser = await this.getCache.get(userId);
+		const cachedUser = await this.getCache.get(`user:${userId}`);
 
 		if (cachedUser) {
 			return JSON.parse(cachedUser) as LoadedUser;
@@ -36,7 +36,7 @@ export class DbLoadUser implements LoadUser {
 			role: user.role,
 		};
 
-		await this.storeCache.store(userId, JSON.stringify(loadedUser));
+		await this.storeCache.store(`user:${userId}`, JSON.stringify(loadedUser));
 
 		return loadedUser;
 	}

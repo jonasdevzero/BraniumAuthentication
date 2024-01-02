@@ -1,5 +1,10 @@
-import { generateAuthentication } from '@data/helpers';
-import { Encrypter, FindUserByUsernameRepository, HashComparer } from '@data/protocols';
+import { generateAuthentication, generateSessionId } from '@data/helpers';
+import {
+	Encrypter,
+	FindUserByUsernameRepository,
+	HashComparer,
+	StoreCache,
+} from '@data/protocols';
 import { LoginUserDTO } from '@domain/dtos';
 import { Authentication } from '@domain/models';
 import { LoginUser } from '@domain/use-cases/LoginUser';
@@ -8,6 +13,8 @@ import { BadRequestError } from '@presentation/errors';
 
 @injectable()
 export class DbLoginUser implements LoginUser {
+	private readonly SESSION_EXPIRES = 60 * 60 * 24 * 3; // 3 days
+
 	constructor(
 		@inject('FindUserByUsernameRepository')
 		private readonly findUserByUsernameRepository: FindUserByUsernameRepository,
@@ -17,6 +24,9 @@ export class DbLoginUser implements LoginUser {
 
 		@inject('Encrypter')
 		private readonly encrypter: Encrypter,
+
+		@inject('StoreCache')
+		private readonly storeCache: StoreCache,
 	) {}
 
 	async login(data: LoginUserDTO): Promise<Authentication> {
@@ -34,9 +44,12 @@ export class DbLoginUser implements LoginUser {
 			throw new BadRequestError('Username or email invalid');
 		}
 
-		const authentication = generateAuthentication(this.encrypter, {
-			userId: user.id,
-			role: user.role,
+		const sessionId = generateSessionId();
+
+		const authentication = generateAuthentication(this.encrypter, sessionId);
+
+		await this.storeCache.store(`session:${sessionId}`, user.id, {
+			expires: this.SESSION_EXPIRES,
 		});
 
 		return authentication;

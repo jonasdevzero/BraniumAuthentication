@@ -6,7 +6,7 @@ import { Controller, HttpRequest, HttpResponse } from '@presentation/protocols';
 
 @controller()
 @middlewares('EnsureAuthenticated')
-@route.get('/load')
+@route.get('/auth')
 export class LoadUserController implements Controller {
 	constructor(
 		@inject.usecase('LoadUser')

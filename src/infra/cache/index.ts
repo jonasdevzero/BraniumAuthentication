@@ -5,3 +5,4 @@ const provider = providers[ENV.CACHE_DRIVER];
 
 export const GetCache = provider.get;
 export const StoreCache = provider.store;
+export const RemoveCache = provider.remove;

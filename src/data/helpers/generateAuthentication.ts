@@ -1,20 +1,19 @@
 import { Encrypter } from '@data/protocols';
-import { Authentication, UserRole } from '@domain/models';
+import { Authentication } from '@domain/models';
 import { ENV } from '@main/config/env';
 
 interface AuthenticationData {
-	userId: string;
-	role: UserRole;
+	sessionId: string;
 }
 
-export function generateAuthentication(encrypter: Encrypter, data: AuthenticationData) {
-	const { userId, role } = data;
-
-	const access = encrypter.encrypt(userId, { payload: { role } });
-	const refresh = encrypter.encrypt(userId, {
-		payload: { role },
+export function generateAuthentication(
+	encrypter: Encrypter,
+	sessionId: string,
+): Authentication {
+	const access = encrypter.encrypt(sessionId);
+	const refresh = encrypter.encrypt(sessionId, {
 		expiresIn: ENV.JWT_REFRESH_EXPIRES_IN,
 	});
 
-	return { access, refresh } as Authentication;
+	return { access, refresh };
 }
