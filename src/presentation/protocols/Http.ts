@@ -1,4 +1,3 @@
-import { UserRole } from '@domain/models';
 import { IncomingHttpHeaders } from 'http';
 
 export interface HttpRequest {
@@ -8,7 +7,6 @@ export interface HttpRequest {
 	headers: IncomingHttpHeaders;
 	user: {
 		id: string;
-		role?: UserRole;
 	};
 }
 
