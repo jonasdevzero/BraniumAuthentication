@@ -4,3 +4,4 @@ export * from './ValidateEmailDTO';
 export * from './LoginUserDTO';
 export * from './RecoverPasswordDTO';
 export * from './ResetPasswordDTO';
+export * from './EditPasswordDTO';

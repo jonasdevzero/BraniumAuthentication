@@ -6,3 +6,4 @@ export * from './DbLogoutUser';
 export * from './DbRefreshUser';
 export * from './DbRecoverPassword';
 export * from './DbResetPassword';
+export * from './DbEditPassword';
