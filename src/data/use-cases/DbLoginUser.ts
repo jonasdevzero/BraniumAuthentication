@@ -34,13 +34,13 @@ export class DbLoginUser implements LoginUser {
 		const user = await this.findUserByUsernameRepository.find(username);
 
 		if (!user) {
-			throw new BadRequestError('Username or email invalid');
+			throw new BadRequestError('Username or password invalid');
 		}
 
 		const isValidPassword = await this.hashComparer.compare(password, user.password);
 
 		if (!isValidPassword) {
-			throw new BadRequestError('Username or email invalid');
+			throw new BadRequestError('Username or password invalid');
 		}
 
 		const sessionId = generateSessionId();
