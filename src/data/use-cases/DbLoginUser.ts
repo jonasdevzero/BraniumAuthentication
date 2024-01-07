@@ -8,13 +8,12 @@ import {
 import { LoginUserDTO } from '@domain/dtos';
 import { Authentication } from '@domain/models';
 import { LoginUser } from '@domain/use-cases/LoginUser';
+import { constants } from '@main/config/constants';
 import { inject, injectable } from '@main/container';
 import { BadRequestError } from '@presentation/errors';
 
 @injectable()
 export class DbLoginUser implements LoginUser {
-	private readonly SESSION_EXPIRES = 60 * 60 * 24 * 3; // 3 days
-
 	constructor(
 		@inject('FindUserByUsernameRepository')
 		private readonly findUserByUsernameRepository: FindUserByUsernameRepository,
@@ -49,7 +48,7 @@ export class DbLoginUser implements LoginUser {
 		const authentication = generateAuthentication(this.encrypter, sessionId);
 
 		await this.storeCache.store(`session:${sessionId}`, user.id, {
-			expires: this.SESSION_EXPIRES,
+			expires: constants.SESSION_EXPIRES,
 		});
 
 		return authentication;
