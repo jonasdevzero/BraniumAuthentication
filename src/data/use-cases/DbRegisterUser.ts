@@ -1,3 +1,4 @@
+import { clientUrls, loadEmailTemplate } from '@data/helpers';
 import {
 	CreateMetadataRepository,
 	EditUserRepository,
@@ -56,9 +57,13 @@ export class DbRegisterUser implements RegisterUser {
 			value: '-',
 		});
 
-		this.mailProvider.send({
+		const link = clientUrls.welcome(metadata.id, email);
+
+		const emailBody = await loadEmailTemplate('WelcomeEmail', { link });
+
+		await this.mailProvider.send({
 			subject: 'Bem vindo ao Branium',
-			body: `http://localhost:3000/register/finish?token=${metadata.id}&email=${email}`,
+			body: emailBody,
 			to: { email },
 		});
 	}

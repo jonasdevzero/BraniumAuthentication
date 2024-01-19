@@ -26,7 +26,7 @@ class SendGridProvider implements MailProvider {
 				email: mailConfig.emailFrom,
 			},
 			to: {
-				name: String(message.to.name),
+				name: message.to.name,
 				email: message.to.email,
 			},
 			subject: message.subject,

@@ -24,6 +24,9 @@ const envSchema = z.object({
 	MAIL_USER_FROM: z.string().optional(),
 
 	MAIL_SENDGRID_API_KEY: z.string().optional(),
+
+	VALIDATE_EMAIL_URL: z.string(),
+	RESET_PASSWORD_URL: z.string(),
 });
 
 export const ENV = envSchema.parse(process.env);

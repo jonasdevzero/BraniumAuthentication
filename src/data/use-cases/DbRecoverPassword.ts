@@ -1,3 +1,4 @@
+import { clientUrls, loadEmailTemplate } from '@data/helpers';
 import {
 	CreateMetadataRepository,
 	FindUserByUsernameRepository,
@@ -46,9 +47,13 @@ export class DbRecoverPassword implements RecoverPassword {
 			value: '',
 		});
 
+		const link = clientUrls.resetPassword(metadata.id);
+
+		const emailBody = await loadEmailTemplate('RecoverPasswordEmail', { link });
+
 		this.mailProvider.send({
 			subject: 'Recuperação de senha',
-			body: `http://localhost:3000/recover-password?token=${metadata.id}`,
+			body: emailBody,
 			to: { email },
 		});
 	}
