@@ -4,7 +4,7 @@ dist
 .env
 .react-email
 
-ssl/**/*.pem
+certificates/**/*.pem
 
 temp/*
 !temp/uploads

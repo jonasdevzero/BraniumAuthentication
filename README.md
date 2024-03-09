@@ -2,10 +2,10 @@
 
 1. Install OpenSSL
 
-2. Got to `ssl` folder
+2. Got to `certificates` folder
 
 ```sh
-cd ssl
+cd certificates
 ```
 
 3. Create a Certificate Authority (CA)
