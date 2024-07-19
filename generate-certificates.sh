@@ -8,7 +8,7 @@ cd certificates
 
 # Generate Certificate Authority (CA) key and certificate
 openssl genpkey -algorithm RSA -out ca-key.pem
-openssl req -x509 -new -nodes -key ca-key.pem -subj "/CN=branium" -days 3650 -out ca-cert.pem
+openssl req -x509 -new -nodes -key ca-key.pem -subj "/CN=Branium" -days 3650 -out ca-cert.pem
 
 # Generate server key and CSR
 openssl genpkey -algorithm RSA -out server-key.pem
